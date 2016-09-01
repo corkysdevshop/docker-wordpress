@@ -1,0 +1,21 @@
+version: '2'
+services:
+  wordpress:
+    image: wordpress
+    ports:
+      - 8080:80
+    environment:
+      WORDPRESS_DB_PASSWORD: example
+    links:
+      - mysql:mysql
+  mysql:
+    image: mariadb
+    environment:
+      MYSQL_ROOT_PASSWORD: example
+    volumes_from:
+      - mysql-data:rw
+  mysql-data:
+    image: busybox
+    command: /bin/true
+    volumes:
+      - /var/lib/mysql
